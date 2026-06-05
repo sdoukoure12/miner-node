@@ -1,0 +1,54 @@
+cat > .github/workflows/ci.yml << 'EOF'
+name: CI Node.js + ShellCheck + Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+      - run: npm install
+      - name: Verify server.js syntax
+        run: node -c server.js
+      - name: Lint (optional)
+        run: npx eslint . || true
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: './scripts'
+
+  deploy:
+    needs: [test-backend, shellcheck]
+    runs-on: ubuntu-latest
+    if: success()
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /opt/miner-node
+            git pull origin main
+            cd backend
+            npm install
+            pm2 restart miner-backend
+            # Redémarre aussi le mineur si nécessaire
+            sudo systemctl restart miner.service 2>/dev/null || true
+EOF
