@@ -1,0 +1,26 @@
+cat > scripts/find-vps.sh <<'EOF'
+#!/bin/bash
+echo "=============================="
+echo "  RECHERCHE DE VPS GRATUIT"
+echo "=============================="
+echo ""
+echo "1) Oracle Cloud Free Tier"
+echo "   - 4 cœurs ARM, 24 Go RAM, 200 Go disque"
+echo "   - Valable à vie (aucun frais)"
+echo "   - Lien : https://www.oracle.com/cloud/free/"
+echo ""
+echo "2) Google Cloud Free Tier"
+echo "   - 1 vCPU, 614 Mo RAM, 30 Go disque"
+echo "   - Limité à certaines régions"
+echo ""
+echo "3) AWS Free Tier (12 mois)"
+echo "   - t2.micro 1 Go RAM, 30 Go disque"
+echo ""
+echo "4) Azure Free Tier (12 mois)"
+echo "   - B1s 1 Go RAM"
+echo ""
+echo "---"
+echo "Recommandation : Oracle Cloud (le plus puissant pour une pool)."
+echo "Une fois ton compte créé, exécute 'scripts/deploy-oracle.sh' pour tout installer."
+EOF
+chmod +x scripts/find-vps.sh
