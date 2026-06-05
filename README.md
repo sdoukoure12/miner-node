@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 ---
 
@@ -14,3 +15,6 @@ nano pool/README.md   # colle le contenu, sauvegarde
 git add pool/README.md
 git commit -m "Ajout du guide d'installation de la pool"
 git push origin main
+
+# miner-node
+App mining via pool mining mining app . Withdraw with lightning adresse  6a52a04ff6253e7bcbd69b967a52431f3ad3fd5f
