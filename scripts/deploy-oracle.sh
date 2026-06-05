@@ -1,4 +1,3 @@
-cat > scripts/deploy-oracle.sh <<'EOF'
 #!/bin/bash
 # Ce script nécessite l'OCI CLI installée et configurée
 # Instructions : https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm
@@ -31,5 +30,3 @@ echo "ssh ubuntu@<IP>"
 echo "Ensuite, clonez le dépôt et lancez l'installation :"
 echo "git clone git@github.com:sdoukoure12/miner-node.git"
 echo "cd miner-node && sudo bash init-monitor.sh"
-EOF
-chmod +x scripts/deploy-oracle.sh
